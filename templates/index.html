@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" style="min-height:100vh; background: linear-gradient(135deg, #6d28d9 0%, #312e81 100%); color: #fff; font-family: 'Segoe UI', 'Arial', sans-serif;">
+<head>
+    <meta charset="UTF-8">
+    <title>Frequency Mood Tuner</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style="min-height:100vh; margin:0; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:32px;">
+    <div style="background:rgba(34, 34, 59, 0.92); border-radius:32px; box-shadow:0 8px 32px rgba(0,0,0,0.25); padding:40px 32px 32px 32px; max-width:420px; width:100%; text-align:center;">
+        <h1 style="font-size:2.5rem; font-weight:800; margin-bottom:16px; letter-spacing:-1px; text-shadow:0 2px 8px #312e81;">Frequency Mood Tuner</h1>
+        <p style="font-size:1.1rem; color:#c7d2fe; margin-bottom:24px;">
+            Discover the power of sound frequencies. Select a mood to generate a healing tone that matches your emotional state. Listen, relax, and download your personalized frequency.
+        </p>
+        <form method="POST" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:16px; margin-bottom:28px;">
+            {% for mood in ["relax", "focus", "love", "release", "spiritual"] %}
+                <button name="mood" value="{{ mood }}"
+                    style="
+                        background: linear-gradient(120deg, #6366f1 60%, #a78bfa 100%);
+                        border:none;
+                        border-radius:18px;
+                        padding:14px 0;
+                        font-size:1.08rem;
+                        font-weight:600;
+                        color:#fff;
+                        cursor:pointer;
+                        box-shadow:0 2px 8px rgba(99,102,241,0.18);
+                        transition: background 0.2s, transform 0.15s;
+                    "
+                    onmouseover="this.style.background='linear-gradient(120deg,#a78bfa 60%,#6366f1 100%)'; this.style.transform='translateY(-2px) scale(1.04)';"
+                    onmouseout="this.style.background='linear-gradient(120deg,#6366f1 60%,#a78bfa 100%)'; this.style.transform='none';"
+                >
+                    {{ mood.capitalize() }}
+                </button>
+            {% endfor %}
+        </form>
+
+        {% if tone_path %}
+        <div style="margin-top:18px; display:flex; flex-direction:column; align-items:center;">
+            <audio controls style="width:90%; max-width:260px; margin-bottom:14px; border-radius:12px; background:#23234a;">
+                <source src="/{{ tone_path }}" type="audio/wav">
+                Your browser does not support the audio element.
+            </audio>
+            <a href="/download"
+               style="
+                   background:linear-gradient(90deg,#22d3ee 60%,#16a34a 100%);
+                   color:#fff;
+                   font-weight:700;
+                   padding:10px 28px;
+                   border-radius:12px;
+                   text-decoration:none;
+                   box-shadow:0 2px 8px rgba(34,211,238,0.15);
+                   transition: background 0.2s, transform 0.15s;
+               "
+               onmouseover="this.style.background='linear-gradient(90deg,#16a34a 60%,#22d3ee 100%)'; this.style.transform='scale(1.04)';"
+               onmouseout="this.style.background='linear-gradient(90deg,#22d3ee 60%,#16a34a 100%)'; this.style.transform='none';"
+            >
+                Download Tone
+            </a>
+        </div>
+        {% endif %}
+
+        <div style="margin-top:32px; color:#a5b4fc; font-size:0.98rem;">
+            <strong>How it works:</strong>
+            <ul style="list-style:none; padding:0; margin:10px 0 0 0; text-align:left;">
+                <li>1. Choose a mood that matches your current feeling.</li>
+                <li>2. Listen to the generated frequency tone.</li>
+                <li>3. Download and use the tone for meditation, focus, or relaxation.</li>
+            </ul>
+        </div>
+    </div>
+    <footer style="margin-top:36px; color:#818cf8; font-size:0.93rem; text-align:center;">
+        &copy; {{ year or "2025" }} Frequency Mood Tuner. Crafted for your well-being.
+    </footer>
+</body>
+</html>
